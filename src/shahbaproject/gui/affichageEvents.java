@@ -22,6 +22,10 @@ import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
+import com.codename1.ui.Toolbar;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.plaf.UIManager;
 
 import java.util.ArrayList;
 
@@ -53,7 +57,7 @@ public class affichageEvents extends Form {
     Form f2;
 
        public affichageEvents(Form current) {
-        
+        f = new Form("Events", BoxLayout.y());
         
                 setTitle("List of Events");
                 
@@ -72,20 +76,69 @@ public class affichageEvents extends Form {
    
         SpanLabel SLnom = new SpanLabel("Titre :"+e.getNom_event());
         SpanLabel SLprix = new SpanLabel("Prix :"+e.getPrix_event());
+        
         SpanLabel SLdesc = new SpanLabel("Description :"+e.getDescription_event());
                 SpanLabel SLqut = new SpanLabel("Adresse :"+e.getAdresse());
-                    EncodedImage enc = EncodedImage.createFromImage(Image.createImage(1200,500), true);
+               //  SpanLabel SLplace = new SpanLabel("nbr_place :"+e.getNbr_place());
+                    EncodedImage enc = EncodedImage.createFromImage(Image.createImage(700,350), true);
 		String url =BASE_URL+ "/uploads/"+e.getImage();
                         ImageViewer img = new ImageViewer(URLImage.createToStorage(enc, url.substring(url.lastIndexOf("/")+1, url.length()), url));
                         img.getAllStyles().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FIT);
                         Button rent = new Button ("Rent");
-                        cnt1.add(img);
+                       
+               
                         cnt1.add(SLnom);
-                        cnt1.add(SLprix);
+                        cnt1.add(img);
                         cnt1.add(SLdesc);
+                        // cnt1.add(SLplace);
                         cnt1.add(SLqut);
+                        cnt1.add(SLprix);
                         cnt1.add(rent);
       
+                        
+                        
+                        
+                        rent.addPointerPressedListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+
+                    f2 = new Form(BoxLayout.y());
+
+                    Toolbar tb = f2.getToolbar();
+
+                    tb.addMaterialCommandToLeftBar("Back", FontImage.MATERIAL_ARROW_BACK, e -> {
+
+                        f.showBack();
+
+                    });
+
+                    SpanLabel sp1 = new SpanLabel("Titre :"+e.getNom_event());
+        SpanLabel sp2 = new SpanLabel("Prix :"+e.getPrix_event());
+        
+        SpanLabel sp3 = new SpanLabel("Description :"+e.getDescription_event());
+                SpanLabel sp4 = new SpanLabel("Adresse :"+e.getAdresse());
+                // SpanLabel sp5 = new SpanLabel("nbr_place :"+e.getNbr_place());
+                    Style s = UIManager.getInstance().getComponentStyle("MultiLine1");
+                    FontImage p = FontImage.createMaterial(FontImage.MATERIAL_PORTRAIT, s);
+                    EncodedImage placeholder;
+                    placeholder = EncodedImage.createFromImage(Image.createImage(p.getWidth() * 3, p.getWidth() * 3), false);
+                  
+                    System.out.println("photo :" + e.getImage());
+                    ImageViewer sp6 = new ImageViewer(URLImage.createToStorage(placeholder, e.getImage(), e.getImage()));
+                    System.out.println(sp3.toString());
+                    f2.add(sp6);
+                    f2.add(sp1);
+                    f2.add(sp2);
+                      f2.add(sp3);
+                    f2.add(sp4);
+                     // f2.add(sp5);
+                    
+                    f2.show();
+
+                }
+            });
+                        
        
                         
         cnt2.add(cnt1);
@@ -95,11 +148,11 @@ public class affichageEvents extends Form {
     
     add(cnt2);
 }
- }
+ getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e->new  HomeForm().show());
    
         
-        
-    }
+                        }}
+    
 
 
  

@@ -11,6 +11,8 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import shahbaproject.gui.affichageEvents;
 
+
+
 /**
  *
  * @author bhk
@@ -30,6 +32,8 @@ public class HomeForm extends Form {
         add(new Label("Choose an option"));
         Button btnListTasks = new Button("Events");        
         btnListTasks.addActionListener(e -> new affichageEvents(current).show());
+
+        
   addAll( btnListTasks);
 
     }

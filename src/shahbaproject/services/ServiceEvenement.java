@@ -87,6 +87,7 @@ public class ServiceEvenement {
                 **/
                 
                 e.setPrix_event(Double.parseDouble(obj.get("prix_event").toString()));
+              //   e.setNbr_place(Integer.parseInt(obj.get("nbr_place").toString()));
 
                                 
                 //float id = Float.parseFloat(obj.get("id").toString());
